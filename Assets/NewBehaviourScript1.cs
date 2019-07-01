@@ -1,0 +1,47 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NewBehaviourScript1 : MonoBehaviour
+{
+    public float speed = 10.0f;
+    private float translation;
+    private float straffe;
+    public int npc_collide;
+
+    // Use this for initialization
+    void Start()
+    {
+        // turn off the cursor
+        //Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Input.GetAxis() is used to get the user's input
+        // You can furthor set it on Unity. (Edit, Project Settings, Input)
+        translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        straffe = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        transform.Translate(straffe, 0, translation);
+
+
+        if (Input.GetKeyDown("escape"))
+        {
+            // turn on the cursor
+            Cursor.lockState = CursorLockMode.None;
+        }
+        
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("other"))
+        {
+            other.gameObject.SetActive(false);
+            // perform the increment +1
+            npc_collide+=10;
+            Debug.Log(npc_collide);
+        }
+    }
+
+}
